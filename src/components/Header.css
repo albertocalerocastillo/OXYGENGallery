@@ -1,17 +1,31 @@
 header {
-  background-color: #000;
-  color: #fff;
-  padding: 1rem;
-  text-align: center;
+  background-color: #1B1F22;
+  color: #FFFFFF;
+  text-align: left;
   position: fixed;
   top: 0;
   left: 0;
   width: 100%;
   z-index: 1000;
+  padding: 0.5rem 1rem; /* Reduce el padding del header */
+}
+
+.header-content {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem; /* Ajusta el espacio entre los elementos del header */
 }
 
 header h1 {
   margin: 0;
-  font-size: 1.8rem;
+  font-size: 1.4rem; /* Ajusta ligeramente el tamaño del texto */
   font-weight: bold;
+  line-height: 1.2; /* Reduce la altura de línea */
+}
+
+header img {
+  width: 35px; /* Reduce el tamaño del logo */
+  height: 35px;
+  object-fit: contain;
+  margin-right: 0.5rem; /* Ajusta el margen derecho del logo */
 }
