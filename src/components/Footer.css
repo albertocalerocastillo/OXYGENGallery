@@ -1,0 +1,41 @@
+.footer {
+  background-color: #000;
+  color: #fff;
+  padding: 1rem;
+  text-align: center;
+  position: relative;
+  width: 100%;
+  bottom: 0;
+}
+
+.footer-links {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+}
+
+.footer-icon {
+  width: 30px;
+  height: 30px;
+  cursor: pointer;
+}
+
+.footer a {
+  color: #fff;
+  text-decoration: none;
+}
+
+body {
+  display: flex;
+  flex-direction: column;
+  height: 100vh; 
+  margin: 0;
+}
+
+main {
+  flex: 1;
+}
+
+footer {
+  margin-top: auto;
+}
