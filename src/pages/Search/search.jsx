@@ -48,20 +48,18 @@ const Search = () => {
     fetchPhotos();
   }, [query, activeFilter]);
 
-  // Actualizar fondo según el filtro activo
   useEffect(() => {
     if (activeFilter === 'favoritas') {
-      document.body.style.backgroundColor = '#FFC0CB'; // Fondo rosa
+      document.body.style.backgroundColor = '#F3D4D4';
     } else {
-      document.body.style.backgroundColor = ''; // Restaurar fondo
+      document.body.style.backgroundColor = ''; 
     }
 
     return () => {
-      document.body.style.backgroundColor = ''; // Restaurar fondo al desmontar
+      document.body.style.backgroundColor = '';
     };
   }, [activeFilter]);
 
-  // Filtrar favoritas por descripción
   useEffect(() => {
     if (activeFilter === 'favoritas') {
       setFilteredFavorites(
