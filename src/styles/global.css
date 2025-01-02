@@ -7,11 +7,11 @@ body {
 }
 
 body.favoritas-page {
-  background-color: #F3D4D4; /* Esto solo afecta a Favoritas */
+  background-color: #F3D4D4;
 }
 
 * {
-  color: inherit; /* No fuerces el color globalmente */
+  color: inherit;
 }
 
 .toggle-buttons {

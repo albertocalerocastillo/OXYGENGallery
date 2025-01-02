@@ -1,13 +1,11 @@
 body.favoritas-bg {
-  background-color: #F3D4D4; /* Fondo rosa */
+  background-color: #F3D4D4;
 }
 
-/* Nuevo estilo para fondo de Search */
 body.search-bg {
-  background-color: #DEEEE2; /* Fondo verde */
+  background-color: #DEEEE2;
 }
 
-/* Mantiene estilos existentes */
 .search-page {
   max-width: 1200px;
   margin: 0 auto;
@@ -27,7 +25,6 @@ body.search-bg {
   font-weight: bold;
   margin: 0 auto;
 }
-
 
 .search-bar select{
   background-color: #fff;
@@ -94,28 +91,28 @@ body.search-bg {
 }
 
 .photo-card {
-background-color: #9B9B9B;
-border-radius: 15px;
-text-align: center;
-position: relative;
+  background-color: #9B9B9B;
+  border-radius: 15px;
+  text-align: center;
+  position: relative;
 }
 
 .photo-card img {
   border-radius: 15px;
-width: 100%;
+  width: 100%;
 }
 
 .photo-card .photo-actions {
-display: flex;
-justify-content: space-around;
-margin-top: 0.5rem;
+  display: flex;
+  justify-content: space-around;
+  margin-top: 0.5rem;
 }
 
 .photo-card button {
-background: none;
-border: none;
-cursor: pointer;
-font-size: 1.2rem;
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 1.2rem;
 }
 
 .load-more {

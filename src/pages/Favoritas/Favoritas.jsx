@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import ModalFavoritas from '../../components/Modal/ModalFavoritas';
-import '../Search/Search.css'; // Usar estilos de Search
+import '../Search/Search.css';
 
 const Favoritas = () => {
   const [photos, setPhotos] = useState([]);
@@ -9,7 +9,6 @@ const Favoritas = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedPhoto, setSelectedPhoto] = useState(null);
 
-  // Fondo rosa
   useEffect(() => {
     document.body.style.backgroundColor = '#F3D4D4';
     return () => {
@@ -17,38 +16,32 @@ const Favoritas = () => {
     };
   }, []);
 
-  // Cargar fotos favoritas desde el localStorage
   useEffect(() => {
     const storedPhotos = JSON.parse(localStorage.getItem('myPhotos')) || [];
     setPhotos(storedPhotos);
   }, []);
 
-  // Guardar fotos actualizadas en el localStorage
   const savePhotosToLocalStorage = (updatedPhotos) => {
     localStorage.setItem('myPhotos', JSON.stringify(updatedPhotos));
     setPhotos(updatedPhotos);
   };
 
-  // Abrir modal
   const openModal = (photo) => {
     setSelectedPhoto(photo);
     setIsModalOpen(true);
   };
 
-  // Cerrar modal
   const closeModal = () => {
     setIsModalOpen(false);
     setSelectedPhoto(null);
   };
 
-  // Eliminar foto
   const handleDelete = (photoId) => {
     const updatedPhotos = photos.filter((photo) => photo.id !== photoId);
     savePhotosToLocalStorage(updatedPhotos);
     closeModal();
   };
 
-  // Guardar descripción
   const handleSaveDescription = (photoId, newDescription) => {
     const updatedPhotos = photos.map((photo) =>
       photo.id === photoId ? { ...photo, description: newDescription } : photo
@@ -56,16 +49,15 @@ const Favoritas = () => {
     savePhotosToLocalStorage(updatedPhotos);
   };
 
-  // Filtrar y ordenar fotos
   const filteredPhotos = photos
     .filter((photo) =>
       photo.name.toLowerCase().includes(searchTerm.toLowerCase())
     )
     .sort((a, b) => {
       if (sortOption === 'date') {
-        return new Date(b.date) - new Date(a.date); // Ordenar por fecha descendente
+        return new Date(b.date) - new Date(a.date);
       } else if (sortOption === 'name') {
-        return a.name.localeCompare(b.name); // Ordenar alfabéticamente
+        return a.name.localeCompare(b.name);
       }
       return 0;
     });

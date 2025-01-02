@@ -61,15 +61,15 @@ const Modal = ({ isOpen, onClose, photo, onUpdateDescription, removeFromFavorite
         {isFavoritas && (
           <div className="photo-actions">
             {!isEditing ? (
-              <button onClick={() => setIsEditing(true)} className="small-button">
+              <button onClick={() => setIsEditing(true)} className="modalButtons">
                 <img src={editIcon} alt="Editar" />
               </button>
             ) : (
-              <button onClick={handleSave} className="small-button">
+              <button onClick={handleSave} className="modalButtons">
                 <img src={saveIcon} alt="Guardar" />
               </button>
             )}
-            <button onClick={handleDelete} className="small-button">
+            <button onClick={handleDelete} className="modalButtons">
               <img src={deleteIcon} alt="Borrar" />
             </button>
           </div>

@@ -1,12 +1,12 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
-import { searchPhotos } from '../../services/unsplash'; // Función que ya tienes para interactuar con la API.
+import { searchPhotos } from '../../services/unsplash';
 
 export const fetchPhotos = createAsyncThunk(
   'search/fetchPhotos',
   async (query, { rejectWithValue }) => {
     try {
       const results = await searchPhotos(query);
-      return results; // Asegúrate de devolver solo los datos necesarios.
+      return results;
     } catch (error) {
       return rejectWithValue(error.message);
     }
@@ -17,7 +17,7 @@ const searchSlice = createSlice({
   name: 'search',
   initialState: {
     photos: [],
-    status: 'idle', // 'idle' | 'loading' | 'succeeded' | 'failed'
+    status: 'idle',
     error: null,
   },
   reducers: {
@@ -32,7 +32,7 @@ const searchSlice = createSlice({
       })
       .addCase(fetchPhotos.fulfilled, (state, action) => {
         state.status = 'succeeded';
-        state.photos = action.payload; // Asegúrate de que action.payload tenga solo los datos necesarios.
+        state.photos = action.payload;
       })
       .addCase(fetchPhotos.rejected, (state, action) => {
         state.status = 'failed';

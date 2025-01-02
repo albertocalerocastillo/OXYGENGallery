@@ -3,6 +3,7 @@ import { useDispatch } from 'react-redux';
 import { addFavorite } from '../../slices/favoritesSlice';
 import { searchPhotos } from '../../services/unsplash';
 import Modal from '../../components/Modal/Modal';
+import { saveAs } from 'file-saver';
 import './Search.css';
 
 import addIcon from '../../images/añadir.png';
@@ -14,6 +15,7 @@ import searchIcon from '../../images/lupa.png';
 const Search = () => {
   const [query, setQuery] = useState('');
   const [photos, setPhotos] = useState([]);
+  const [filteredFavorites, setFilteredFavorites] = useState([]);
   const [sortOption, setSortOption] = useState('');
   const [activeFilter, setActiveFilter] = useState('global');
   const [favorites, setFavorites] = useState([]);
@@ -33,9 +35,9 @@ const Search = () => {
   useEffect(() => {
     const fetchPhotos = async () => {
       try {
-        if (query.trim() === '') {
+        if (query.trim() === '' && activeFilter === 'global') {
           setPhotos([]);
-        } else {
+        } else if (activeFilter === 'global') {
           const results = await searchPhotos(query);
           setPhotos(results);
         }
@@ -44,7 +46,33 @@ const Search = () => {
       }
     };
     fetchPhotos();
-  }, [query]);
+  }, [query, activeFilter]);
+
+  // Actualizar fondo según el filtro activo
+  useEffect(() => {
+    if (activeFilter === 'favoritas') {
+      document.body.style.backgroundColor = '#FFC0CB'; // Fondo rosa
+    } else {
+      document.body.style.backgroundColor = ''; // Restaurar fondo
+    }
+
+    return () => {
+      document.body.style.backgroundColor = ''; // Restaurar fondo al desmontar
+    };
+  }, [activeFilter]);
+
+  // Filtrar favoritas por descripción
+  useEffect(() => {
+    if (activeFilter === 'favoritas') {
+      setFilteredFavorites(
+        favorites.filter((photo) =>
+          photo.alt_description
+            ?.toLowerCase()
+            .includes(query.toLowerCase())
+        )
+      );
+    }
+  }, [query, favorites, activeFilter]);
 
   const loadMorePhotos = async () => {
     const page = Math.ceil(photos.length / 12) + 1;
@@ -102,18 +130,15 @@ const Search = () => {
     setSelectedPhoto(null);
   };
 
-  useEffect(() => {
-    document.body.style.backgroundColor =
-      activeFilter === 'favoritas' ? '#F3D4D4' : '#DEEEE2';
-
-    return () => {
-      document.body.style.backgroundColor = 'white';
-    };
-  }, [activeFilter]);
+  const downloadImage = (url, filename) => {
+    saveAs(url, filename);
+  };
 
   const renderPhotos = () => {
     const filteredPhotos =
-      activeFilter === 'favoritas' ? favorites : sortPhotos(photos);
+      activeFilter === 'favoritas'
+        ? filteredFavorites
+        : sortPhotos(photos);
 
     return (
       <div className="photo-grid">
@@ -136,7 +161,7 @@ const Search = () => {
                   alt="Favoritos"
                 />
               </button>
-              <button onClick={() => window.open(photo.urls.full, '_blank')}>
+              <button onClick={() => downloadImage(photo.urls.full, `${photo.id}.jpg`)}>
                 <img src={downloadIcon} alt="Descargar" />
               </button>
               <button onClick={() => openModal(photo)}>
@@ -163,7 +188,11 @@ const Search = () => {
           <input
             type="text"
             className="search-input"
-            placeholder="Buscar fotos"
+            placeholder={
+              activeFilter === 'favoritas'
+                ? 'Buscar descripciones'
+                : 'Buscar fotos'
+            }
             value={query}
             onChange={(e) => setQuery(e.target.value)}
           />
