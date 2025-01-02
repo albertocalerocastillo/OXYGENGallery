@@ -1,21 +1,19 @@
-/* Fondo de la capa de modal */
 .modal-overlay {
     position: fixed;
     top: 0;
     left: 0;
     width: 100vw;
     height: 100vh;
-    background: rgba(0, 0, 0, 0.6); /* Oscurecimiento del fondo */
+    background: rgba(0, 0, 0, 0.6);
     display: flex;
     justify-content: center;
     align-items: center;
     z-index: 1000;
   }
   
-  /* Contenedor principal del modal */
   .modal-content {
     position: relative;
-    background: #f5f5f5; /* Fondo gris */
+    background: #D9D9D9;
     padding: 20px;
     width: 90%;
     max-width: 400px;
@@ -32,23 +30,20 @@
     cursor: pointer;
   }
   
-  /* Vista previa de la imagen */
   .photo-preview img {
-    width: 180px; /* Ancho fijo de la imagen */
-    height: 180px; /* Altura fija de la imagen */
-    object-fit: cover; /* Asegura que la imagen no se deforme */
-    border-radius: 5px; /* Bordes redondeados opcionales */
-    margin-bottom: 15px; /* Separación con el resto del contenido */
+    width: 180px;
+    height: 180px;
+    object-fit: cover;
+    border-radius: 5px;
+    margin-bottom: 15px;
   }
   
-  
-  /* Detalles alineados a la izquierda */
   .photo-details p {
     margin: 5px 0;
     font-size: 14px;
     color: #333;
   }
-  /* Contenedor de la descripción y el textarea */
+
 .photo-description {
   display: flex;
   align-items: center;
@@ -57,13 +52,13 @@
 
 .photo-description p {
   margin: 0;
-  width: 40%; /* Ocupa el 40% del ancho */
+  width: 40%;
   font-size: 14px;
   color: #333;
 }
 
 .photo-description textarea {
-  width: 60%; /* Ocupa el 60% del ancho */
+  width: 60%;
   height: 80px;
   padding: 10px;
   background: #ffffff;
@@ -72,5 +67,20 @@
   font-size: 14px;
   color: #333;
   resize: none;
-  margin-left: 10px; /* Espaciado entre el texto y el textarea */
+  margin-left: 10px;
+}
+
+.small-button {
+  width: 30px;
+  height: 30px;
+  padding: 4px;
+  margin: 4px;
+  border: none;
+  background: none;
+  cursor: pointer;
+}
+
+.small-button img {
+  width: 100%;
+  height: 100%;
 }

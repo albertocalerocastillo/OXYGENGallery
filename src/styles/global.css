@@ -6,6 +6,14 @@ body {
   padding: 0;
 }
 
+body.favoritas-page {
+  background-color: #F3D4D4; /* Esto solo afecta a Favoritas */
+}
+
+* {
+  color: inherit; /* No fuerces el color globalmente */
+}
+
 .toggle-buttons {
   display: flex;
   justify-content: center;

@@ -1,4 +1,4 @@
-const ACCESS_KEY = 't9z5pgR9i_uNPt3diBpQeQrRJvM7aWsL1TOujrAdtb4';
+const ACCESS_KEY = 'U50Eg7Swlf-pt3kAGD8ppMrsNyaxsBDPltyUMd3BKNc';
 
 export const searchPhotos = async (query, page = 1) => {
   const url = `https://api.unsplash.com/search/photos?query=${query}&page=${page}&per_page=12&client_id=${ACCESS_KEY}`;

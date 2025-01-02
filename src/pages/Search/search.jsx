@@ -1,15 +1,15 @@
 import React, { useState, useEffect } from 'react';
 import { useDispatch } from 'react-redux';
-import { addFavorite } from '../slices/favoritesSlice';
-import { searchPhotos } from '../services/unsplash';
-import Modal from '../components/Modal'; // Importa el componente Modal
+import { addFavorite } from '../../slices/favoritesSlice';
+import { searchPhotos } from '../../services/unsplash';
+import Modal from '../../components/Modal/Modal';
 import './Search.css';
 
-import addIcon from '../images/añadir.png';
-import favoriteMarkedIcon from '../images/añadirmarcado.png';
-import downloadIcon from '../images/descargar.png';
-import infoIcon from '../images/info.png';
-import searchIcon from '../images/lupa.png';
+import addIcon from '../../images/añadir.png';
+import favoriteMarkedIcon from '../../images/añadirmarcado.png';
+import downloadIcon from '../../images/descargar.png';
+import infoIcon from '../../images/info.png';
+import searchIcon from '../../images/lupa.png';
 
 const Search = () => {
   const [query, setQuery] = useState('');
@@ -17,8 +17,8 @@ const Search = () => {
   const [sortOption, setSortOption] = useState('');
   const [activeFilter, setActiveFilter] = useState('global');
   const [favorites, setFavorites] = useState([]);
-  const [isModalOpen, setIsModalOpen] = useState(false); // Estado para el modal
-  const [selectedPhoto, setSelectedPhoto] = useState(null); // Foto seleccionada para mostrar en el modal
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [selectedPhoto, setSelectedPhoto] = useState(null);
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -46,18 +46,6 @@ const Search = () => {
     fetchPhotos();
   }, [query]);
 
-  useEffect(() => {
-    if (activeFilter === 'favoritas') {
-      document.body.style.backgroundColor = '#F3D4D4'; // Fondo rosa
-    } else {
-      document.body.style.backgroundColor = ''; // Fondo por defecto
-    }
-
-    return () => {
-      document.body.style.backgroundColor = ''; // Limpieza del estilo
-    };
-  }, [activeFilter]);
-
   const loadMorePhotos = async () => {
     const page = Math.ceil(photos.length / 12) + 1;
     const morePhotos = await searchPhotos(query, page);
@@ -71,6 +59,20 @@ const Search = () => {
     } else {
       setFavorites([...favorites, photo]);
     }
+  };
+
+  const handleUpdateDescription = (photoId, newDescription) => {
+    const updatedFavorites = favorites.map((fav) =>
+      fav.id === photoId ? { ...fav, alt_description: newDescription } : fav
+    );
+    setFavorites(updatedFavorites);
+    localStorage.setItem('favorites', JSON.stringify(updatedFavorites));
+  };
+
+  const removeFromFavorites = (photo) => {
+    setFavorites(favorites.filter((fav) => fav.id !== photo.id));
+    localStorage.setItem('favorites', JSON.stringify(favorites.filter((fav) => fav.id !== photo.id)));
+    setIsModalOpen(false);
   };
 
   const sortPhotos = (photosToSort) => {
@@ -91,14 +93,23 @@ const Search = () => {
   };
 
   const openModal = (photo) => {
-    setSelectedPhoto(photo); // Establece la foto seleccionada
-    setIsModalOpen(true); // Abre el modal
+    setSelectedPhoto(photo);
+    setIsModalOpen(true);
   };
 
   const closeModal = () => {
-    setIsModalOpen(false); // Cierra el modal
-    setSelectedPhoto(null); // Limpia la foto seleccionada
+    setIsModalOpen(false);
+    setSelectedPhoto(null);
   };
+
+  useEffect(() => {
+    document.body.style.backgroundColor =
+      activeFilter === 'favoritas' ? '#F3D4D4' : '#DEEEE2';
+
+    return () => {
+      document.body.style.backgroundColor = 'white';
+    };
+  }, [activeFilter]);
 
   const renderPhotos = () => {
     const filteredPhotos =
@@ -196,7 +207,14 @@ const Search = () => {
         <p>No hay resultados</p>
       )}
 
-      <Modal isOpen={isModalOpen} onClose={closeModal} photo={selectedPhoto} />
+      <Modal
+        isOpen={isModalOpen}
+        onClose={closeModal}
+        photo={selectedPhoto}
+        onUpdateDescription={handleUpdateDescription}
+        removeFromFavorites={removeFromFavorites}
+        isFavoritas={activeFilter === 'favoritas'}
+      />
     </div>
   );
 };

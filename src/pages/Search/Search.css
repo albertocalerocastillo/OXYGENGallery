@@ -1,3 +1,13 @@
+body.favoritas-bg {
+  background-color: #F3D4D4; /* Fondo rosa */
+}
+
+/* Nuevo estilo para fondo de Search */
+body.search-bg {
+  background-color: #DEEEE2; /* Fondo verde */
+}
+
+/* Mantiene estilos existentes */
 .search-page {
   max-width: 1200px;
   margin: 0 auto;

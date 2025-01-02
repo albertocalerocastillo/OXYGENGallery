@@ -11,7 +11,7 @@ const favoritesSlice = createSlice({
     addFavorite: (state, action) => {
       const photo = action.payload;
       if (!state.favorites.some((p) => p.id === photo.id)) {
-        state.favorites.push(photo);
+        state.favorites.push({ ...photo, description: '' });
         localStorage.setItem('myPhotos', JSON.stringify(state.favorites));
       }
     },
@@ -22,9 +22,17 @@ const favoritesSlice = createSlice({
       state.favorites = updatedFavorites;
       localStorage.setItem('myPhotos', JSON.stringify(updatedFavorites));
     },
+    editDescription: (state, action) => {
+      const { id, description } = action.payload;
+      const photo = state.favorites.find((p) => p.id === id);
+      if (photo) {
+        photo.description = description;
+        localStorage.setItem('myPhotos', JSON.stringify(state.favorites));
+      }
+    },
   },
 });
 
-export const { addFavorite, removeFavorite } = favoritesSlice.actions;
+export const { addFavorite, removeFavorite, editDescription } = favoritesSlice.actions;
 
 export default favoritesSlice.reducer;
