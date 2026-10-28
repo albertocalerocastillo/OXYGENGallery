@@ -4,7 +4,7 @@
 
 **Buscador de fotos sobre la API de Unsplash con colección de favoritas propia.**
 
-Proyecto del Training React Full Stack de OXYGEN · Módulo 3 (React y Redux)
+Proyecto del Training React Full Stack de OXYGEN Academy · Módulo 3 (React y Redux)
 
 ![React](https://img.shields.io/badge/React_18-20232A?style=flat-square&logo=react&logoColor=61DAFB)
 ![Redux Toolkit](https://img.shields.io/badge/Redux_Toolkit-764ABC?style=flat-square&logo=redux&logoColor=white)
